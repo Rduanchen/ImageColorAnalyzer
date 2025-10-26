@@ -1,0 +1,27 @@
+{
+  "name": "color-analysis-service",
+  "version": "1.0.0",
+  "description": "An image color analysis API based on user requirements.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "keywords": [
+    "color",
+    "analysis",
+    "express",
+    "api"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.12.2",
+    "color-name": "^2.0.2",
+    "colorthief": "^2.6.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "form-data": "^4.0.4",
+    "multer": "^2.0.2",
+    "nearest-color": "^0.4.4"
+  }
+}
