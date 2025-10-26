@@ -33,6 +33,35 @@ const nearestColorMatcher = nearestColor.from(
     }, {})
 );
 
+function rgbToHex(rgb) {
+  // Ensure it's an array of three numbers
+  if (!Array.isArray(rgb) || rgb.length !== 3) {
+    throw new Error("Input must be an array of three numbers");
+  }
+
+  // Convert each number to a 2-digit hex string and join
+  return (
+    "#" +
+    rgb
+      .map(num => {
+        if (num < 0 || num > 255 || isNaN(num)) {
+          throw new Error("Each RGB value must be between 0 and 255");
+        }
+        return num.toString(16).padStart(2, "0");
+      })
+      .join("")
+  );
+}
+
+
+const standardNearestMatcher = nearestColor.from(
+    Object.entries(colorNameList.default).reduce((acc, [name, rgb]) => {
+        acc[name] = rgbToHex(rgb);
+        return acc;
+    }, {})
+);
+
+
 // 3. 設定中介軟體 (Middleware)
 // 使用 Multer 的 memoryStorage，這樣檔案會被暫存在記憶體中，而不是硬碟
 const storage = multer.memoryStorage();
@@ -56,14 +85,17 @@ function formatColorObject(rgb) {
     
     // 使用 color-name 找到標準英文名稱
     // color-name 的資料結構是 { "black": "#000000", ... }，需要反轉來查找
-    const standardName = Object.keys(colorNameList).find(name => colorNameList[name] === nearest.value) || 'Unknown';
+    // const standardName = Object.keys(colorNameList).find(name => colorNameList[name] === nearest.value) || 'Unknown';
+    
+    const standardNearest = standardNearestMatcher(hex);
+
 
     return {
         rgb: { r, g, b },
         hex: hex,
         engName: nearest.name, // 來自 nearest-color 的自訂名稱
         chineseName: customColorMap[nearest.name]?.chinese || '未知',
-        engStanderName: standardName, // 來自 color-name 的標準名稱
+        engStanderName: standardNearest.name, // 來自 color-name 的標準名稱
     };
 }
 
