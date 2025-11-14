@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 // 根據需求建立顏色名稱查找表
 const customColorMap = {
     'Blue': { hex: '#0000FF', chinese: '標準純藍' },
-    'Gray': { hex: '#808080', chinese: '中性灰' },
+    // 'Gray': { hex: '#808080', chinese: '中性灰' },
     'White': { hex: '#FFFFFF', chinese: '白色' },
     'Brown': { hex: '#8B4513', chinese: '棕色' },
     'Yellow': { hex: '#FFFF00', chinese: '純黃色' },
